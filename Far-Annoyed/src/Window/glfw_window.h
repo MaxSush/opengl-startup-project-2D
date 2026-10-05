@@ -31,7 +31,7 @@ namespace Breaker
         static std::unique_ptr<Window> CreateWindow(const WinProps& props = WinProps());
 
         void OnUpdate();
-        bool IsShouldClose();
+        bool IsShouldClose() const;
         const WinProps &GetWindowProps();
 
     private:

@@ -41,7 +41,7 @@ namespace Breaker
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    bool Window::IsShouldClose()
+    bool Window::IsShouldClose() const
     {
         return !glfwWindowShouldClose(props.window);
     }
