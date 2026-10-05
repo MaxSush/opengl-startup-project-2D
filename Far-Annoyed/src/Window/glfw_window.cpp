@@ -76,7 +76,7 @@ namespace Breaker
 
         glfwSetKeyCallback(props.window, KeyListner::key_callback);
 
-        glfwSwapInterval(GL_ONE);
+        glfwSwapInterval(1);
 
         const GLubyte *renderer = glGetString(GL_RENDERER); // GPU
         const GLubyte *vendor = glGetString(GL_VENDOR);     // Vendor

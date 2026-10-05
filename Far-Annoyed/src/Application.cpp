@@ -12,6 +12,7 @@ namespace Breaker
 
     Application::~Application()
     {
+        ResourceManager::Clear();
     }
 
     void Application::Run()

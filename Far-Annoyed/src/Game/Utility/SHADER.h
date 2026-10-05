@@ -13,9 +13,15 @@ std::string get_file_contents(const char* filename);
 class Shader
 {
 public:
-	GLuint ID;
-	Shader() = default;
+	Shader() noexcept = default;
 	Shader(const char* vertexFile, const char* fragmentFile);
+	~Shader() noexcept;
+
+	Shader(const Shader&) = delete;
+	Shader& operator=(const Shader&) = delete;
+
+	Shader(Shader&& other) noexcept;
+	Shader& operator=(Shader&& other) noexcept;
 
 	void Activate() const;
 
@@ -26,8 +32,10 @@ public:
 	void setVec4(const std::string& name, glm::vec4 value) const;
 	void setMat4(const std::string& name, glm::mat4 value) const;
 
-	void Delete() const;
+	GLuint GetID() const noexcept { return ID; }
 private:
+	GLuint ID = 0;
+
 	void compileErrors(unsigned int shader, const char* type);
 };
 

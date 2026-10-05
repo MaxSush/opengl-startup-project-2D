@@ -47,8 +47,6 @@ void SpriteRenderer::DrawSprite(const Texture& texture, glm::vec2 pos, glm::vec2
 
 SpriteRenderer::~SpriteRenderer()
 {
-	shader.Delete();
-	vao.Delete();
 }
 
 void SpriteRenderer::Init()
@@ -65,9 +63,13 @@ void SpriteRenderer::Init()
 		1, 2, 3		// second triangle
 	};
 
+	vbo = VBO(vertices, sizeof(vertices));
+	ebo = EBO(indices, sizeof(indices));
+
 	vao.Bind();
-	VBO vbo(vertices, sizeof(vertices));
-	EBO ebo(indices, sizeof(indices));
+
+	vbo.Bind();
+	ebo.Bind();
 
 	vao.LinkAttrib(vbo, 0, 2, GL_FLOAT, 4 * sizeof(float), (void*)0);
 	vao.LinkAttrib(vbo, 1, 2, GL_FLOAT, 4 * sizeof(float), (void*)(2 * sizeof(float)));

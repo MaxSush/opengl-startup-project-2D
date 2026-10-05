@@ -4,11 +4,22 @@
 class VBO
 {
 public:
-	VBO(GLfloat* vertices, GLsizeiptr size);
+	VBO() noexcept = default;
+	VBO(const GLfloat* vertices, GLsizeiptr size);
+	~VBO() noexcept;
+
+	VBO(const VBO&) = delete;
+	VBO& operator=(const VBO&) = delete;
+
+	VBO(VBO&& other) noexcept;
+	VBO& operator=(VBO&& other) noexcept;
+
 	void Bind() const;
-	void Unbind();
-	void Delete() const;
+	void Unbind() const;
+	
+	GLuint GetID() const noexcept { return ID; }
+
 private:
-	GLuint ID;
+	GLuint ID = 0;
 };
 

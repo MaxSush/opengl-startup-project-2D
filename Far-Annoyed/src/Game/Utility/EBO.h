@@ -4,11 +4,22 @@
 class EBO
 {
 public:
-	EBO(GLuint* indices, GLsizeiptr size);
+	EBO() noexcept = default;
+	EBO(const GLuint* indices, GLsizeiptr size);
+	~EBO() noexcept;
+
+	EBO(const EBO&) = delete;
+	EBO& operator=(const EBO&& other) = delete;
+
+	EBO(EBO&& other) noexcept;
+	EBO& operator=(EBO&& other) noexcept;
+
 	void Bind() const;
 	void Unbind();
-	void Delete() const;
+
+	GLuint GetID() const noexcept { return ID; }
+
 private:
-	GLuint ID;
+	GLuint ID = 0;
 };
 

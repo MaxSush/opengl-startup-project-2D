@@ -7,11 +7,10 @@ int main()
 {
     try
     {
-        auto *app = new Breaker::Application;
+        auto app = Breaker::Application();
 
-        app->Run();
+        app.Run();
 
-        delete app;
     }
     catch (const std::exception &e)
     {
@@ -29,8 +28,6 @@ int main()
 
         std::cerr << "Error [ " << errno << " ]: " << buffer << std::endl;
     }
-
-    // auto* app = new Breaker::Application; app->Run();
 
     return 0;
 }

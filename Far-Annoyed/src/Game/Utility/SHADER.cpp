@@ -1,5 +1,4 @@
 #include "SHADER.h"
-#include "SHADER.h"
 
 std::string get_file_contents(const char* filename)
 {
@@ -49,7 +48,34 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 	// Delete the now useless Vertex and Fragment Shader objects
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+}
 
+Shader::~Shader() noexcept
+{
+	if (ID != 0)
+	{
+		glDeleteProgram(ID);
+	}
+}
+
+Shader::Shader(Shader&& other) noexcept
+	: ID(other.ID)
+{
+	other.ID = 0;
+}
+
+Shader& Shader::operator=(Shader&& other) noexcept
+{
+	if (this != &other)
+	{
+		if (ID != 0)
+		{
+			glDeleteBuffers(1, &ID);
+		}
+		ID = other.ID;
+		other.ID = 0;
+	}
+	return *this;
 }
 
 void Shader::Activate() const
@@ -85,11 +111,6 @@ void Shader::setVec3(const std::string& name, glm::vec3 value) const
 void Shader::setVec4(const std::string& name, glm::vec4 value) const
 {
 	glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(value));
-}
-
-void Shader::Delete() const
-{
-	glDeleteProgram(ID);
 }
 
 void Shader::compileErrors(unsigned int shader, const char* type)

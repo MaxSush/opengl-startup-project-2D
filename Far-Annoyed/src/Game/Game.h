@@ -25,7 +25,8 @@ namespace Breaker
     {
     public:
         Game();
-        ~Game();
+        ~Game() = default;
+
         void Init();
         void Update(float dt);
         void Render();
@@ -33,6 +34,6 @@ namespace Breaker
     private:
         GameState state = GameState::GAME_MENU;
 
-        SpriteRenderer* render = nullptr;
+        std::unique_ptr<SpriteRenderer> render;
     };
 }

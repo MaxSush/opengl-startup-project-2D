@@ -6,12 +6,41 @@ VAO::VAO()
 	glBindVertexArray(ID);
 }
 
+VAO::~VAO() noexcept
+{
+	if (ID != 0)
+	{
+		glDeleteVertexArrays(1, &ID);
+	}
+	ID = 0;
+}
+
 void VAO::LinkAttrib(VBO& VBO, GLuint layout, GLuint numComponents, GLenum type, GLsizei stride, void* offset)
 {
 	VBO.Bind();
 	glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
 	glEnableVertexAttribArray(layout);
 	VBO.Unbind();
+}
+
+VAO::VAO(VAO&& other) noexcept
+	: ID(other.ID)
+{
+	other.ID = 0;
+}
+
+VAO& VAO::operator=(VAO&& other) noexcept
+{
+	if (this != &other)
+	{
+		if (ID != 0)
+		{
+			glDeleteBuffers(1, &ID);
+		}
+		ID = other.ID;
+		other.ID = 0;
+	}
+	return *this;
 }
 
 void VAO::Bind() const
@@ -22,9 +51,4 @@ void VAO::Bind() const
 void VAO::Unbind()
 {
 	glBindVertexArray(0);
-}
-
-void VAO::Delete() const
-{
-	glDeleteVertexArrays(1, &ID);
 }

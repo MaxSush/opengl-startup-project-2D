@@ -12,7 +12,11 @@ public:
 	void DrawCube(glm::vec2 pos, glm::vec2 size, glm::vec4 color = { 1.0f,1.0f,1.0f,1.0f });
 	void DrawSprite(const Texture& texture, glm::vec2 pos, glm::vec2 size, glm::vec4 color = { 1.0f,1.0f,1.0f,1.0f });
 private:
-	const Shader shader;
+	const Shader& shader;
+
 	VAO vao;
+	VBO vbo;
+	EBO ebo;
+
 	void Init();
 };

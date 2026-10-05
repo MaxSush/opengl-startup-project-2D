@@ -13,22 +13,18 @@ void ResourceManager::LoadShader(const char* VertexShaderFilename, const char* F
 	Shaders[name] = LoadShaderFromFile(VertexShaderFilename, FragmentShaderFilename);
 }
 
-const Shader ResourceManager::GetShader(std::string name)
+const Shader& ResourceManager::GetShader(std::string name)
 {
-	return Shaders[name];
+	return Shaders.at(name);
 }
 
-const Texture ResourceManager::GetTexture(std::string name)
+const Texture& ResourceManager::GetTexture(std::string name)
 {
-	return Textures[name];
+	return Textures.at(name);
 }
 
 void ResourceManager::Clear()
 {
-    for (auto& iter : Shaders)
-    {
-        iter.second.Delete();
-    }
     for (auto& iter : Textures)
     {
         iter.second.Delete();

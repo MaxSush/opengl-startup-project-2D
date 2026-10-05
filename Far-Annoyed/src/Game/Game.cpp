@@ -8,17 +8,11 @@ Breaker::Game::Game()
 {
 }
 
-Breaker::Game::~Game()
-{
-	ResourceManager::Clear();
-	delete render;
-}
-
 void Breaker::Game::Init()
 {
 	ResourceManager::LoadShader("assets/cubeShader.vs", "assets/cubeShader.fg", "cube");
 	ResourceManager::LoadTexture("assets/brick.png", true, "brick");
-	render = new SpriteRenderer(ResourceManager::GetShader("cube"));
+	render = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("cube"));
 }
 
 void Breaker::Game::Update(float dt)
